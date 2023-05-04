@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public class QueueSecond {
     
