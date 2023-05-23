@@ -1,50 +1,56 @@
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
+class meetingRoom{
+    int start;
+    int finish;
+
+    public meetingRoom(int start, int finish){
+        this.start = start;
+        this.finish = finish;
+    }
+    public int getStart(){
+        return this.start;
+    }
+    public int getFinsih(){
+        return this.finish;
+    }
+}
 public class AllocateMeetingRoom {
     static int N;
-    static int visit[];
+
     public static void main(String ars[]){
         Scanner sc = new Scanner(System.in);
 
         N = sc.nextInt();
 
-        int start[] = new int [N];
-        int finish[] = new int [N];
+        meetingRoom[] room = new meetingRoom[N];
 
-        visit = new int [N];
         int max = 0;
         for(int i = 0 ; i < N ; i++){
-            start[i] = sc.nextInt();
-            finish[i] = sc.nextInt();
-            if( max < finish[i]) max = finish[i];
+            room[i] = new meetingRoom(sc.nextInt(),sc.nextInt());
         }
 
-        while(!isAllVisit()){
-            int s = 0;
-            int f = 0;
-            int n = 1;
+        Arrays.sort(room, new Comparator<meetingRoom>() {
+           @Override
+           public int compare(meetingRoom a, meetingRoom b){
+                if(a.getFinsih() == b.getFinsih()) return Integer.compare(a.getStart(), b.getStart());
+                return Integer.compare(a.getFinsih(), b.getFinsih());
+           } 
+        });
+        int finishTime = 0;
 
-            for(int i = 0 ; i < N ; i++){
-                if(visit[i] == 0){
-                    s = start[i];
-                    f = finish[i];
-
-                    break;
-                }
-            }
-
-            for(int i = f; i < max;i++){
-
-            }
-
-        }
-
-    }
-
-    public static boolean isAllVisit(){
         for(int i = 0 ; i < N ; i++){
-            if(visit[i] == 0) return false;
+            if(room[i].start >= finishTime){
+                finishTime = room[i].finish;
+                max++;
+            }
         }
-        return true;
+
+        System.out.println(max);
+        sc.close();
     }
+
+
 }
